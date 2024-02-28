@@ -29,6 +29,7 @@ class AuthController extends Controller
                  throw new Exception('Failed to retrieve tiktok user.');
              }
              $data['name'] = $user->name;
+             $data['otpCreatedAt'] = time();
              $data['otp'] = $this->generateOTP(6);
              return view('home', $data)->with('success', 'Authentication successful.');
          } catch (Exception $e) {

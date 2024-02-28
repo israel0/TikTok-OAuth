@@ -10,14 +10,19 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-5">
-                                    <h3>Logged in as: {{ $email }}</h3>
+                                    <h3>Logged in as: {{ $name }}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row gy-3 overflow-hidden">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" name="otp" id="otp" value="{{ $otp }}" placeholder="123***" readonly>
+                                    @php
+                                        $currentTime = time();
+                                        $otpExpirationTime = strtotime($otpCreatedAt) + 30; 
+                                        $otpStatus = ($currentTime > $otpExpirationTime) ? 'Expired' : $otp;
+                                    @endphp
+                                    <input type="text" class="form-control" name="otp" id="otp" value="{{ $otpStatus }}" placeholder="123***" readonly>
                                     <label for="otp" class="form-label">OTP</label>
                                 </div>
                             </div>
@@ -28,5 +33,7 @@
         </div>
     </div>
 </section>
+@endsection
+
 
 @endsection
